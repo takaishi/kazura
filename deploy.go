@@ -25,7 +25,7 @@ var deployFlags deployCmdFlags
 // deployCmd represents the deploy command
 var deployCmd = &cobra.Command{
 	Use:   "deploy",
-	Short: "deploy or create trigger",
+	Short: "deploy or create EventBridge rule and target",
 	Long:  "",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Printf("%+v\n", deployFlags)

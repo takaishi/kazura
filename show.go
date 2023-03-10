@@ -23,7 +23,7 @@ var showFlags deployCmdFlags
 // showCmd represents the show command
 var showCmd = &cobra.Command{
 	Use:   "show",
-	Short: "show trigger",
+	Short: "show EventBridge rule and target",
 	Long:  "",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		eb, err := loadEventBridgeFile(showFlags.EventBridgeFilePath)
@@ -41,7 +41,7 @@ var showCmd = &cobra.Command{
 			return err
 		}
 		targets, err := getTargets(cfg, eb.Rule.Name)
-		output := &ShowTriggerOutput{
+		output := &ShowEventBridgeOutput{
 			Rule:    rule,
 			Targets: targets,
 		}
@@ -82,7 +82,7 @@ func getRule(cfg aws.Config, ruleName string) (*eventbridge.DescribeRuleOutput, 
 	return ruleOutput, nil
 }
 
-type ShowTriggerOutput struct {
+type ShowEventBridgeOutput struct {
 	Rule    *eventbridge.DescribeRuleOutput
 	Targets []ebTypes.Target
 }

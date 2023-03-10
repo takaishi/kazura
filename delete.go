@@ -22,7 +22,7 @@ var deleteFlags deleteCmdFlags
 // deleteCmd represents the delete command
 var deleteCmd = &cobra.Command{
 	Use:   "delete",
-	Short: "delete trigger",
+	Short: "delete EventBridge rule and target",
 	Long:  "",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		eb, err := loadEventBridgeFile(deleteFlags.EventBridgeFilePath)
