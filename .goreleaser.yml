@@ -1,0 +1,44 @@
+# This is an example goreleaser.yaml file with some sane defaults.
+# Make sure to check the documentation at http://goreleaser.com
+before:
+  hooks:
+    # you may remove this if you don't use vgo
+    - go mod download
+    # you may remove this if you don't need go generate
+    - go generate ./...
+builds:
+  - env:
+      - CGO_ENABLED=0
+    ldflags:
+      -X github.com/takaishi/kazura/config.Version={{.Version}}
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+brews:
+  - name: kazura
+    tap:
+      owner: takaishi
+      name: homebrew-fomulas
+      token: "{{ .Env.GORELEASER_TOKEN}}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    description: "CLI tool for deployment tool for Amazon EventBridge."
+    homepage: "https://github.com/takaishi/kazura"
+    install: |
+      bin.install Dir['kazura']
+    test: |
+      system "#{bin}/kazura"
