@@ -6,7 +6,7 @@ kazura is a deployment tool for Amazon EventBridge.
 - Create Target (Support Lambda only now)
 
 ## eventbridge.json
-[.gitignore](.gitignore)
+
 The eventbridge.json is a definition for EventBridge Rule and Target. 
 
 ```json
