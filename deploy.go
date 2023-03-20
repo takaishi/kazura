@@ -17,7 +17,6 @@ import (
 )
 
 type deployCmdFlags struct {
-	EventBridgeFilePath string
 }
 
 var deployFlags deployCmdFlags
@@ -28,8 +27,7 @@ var deployCmd = &cobra.Command{
 	Short: "deploy or create EventBridge rule and target",
 	Long:  "",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Printf("%+v\n", deployFlags)
-		eb, err := loadEventBridgeFile(deployFlags.EventBridgeFilePath)
+		eb, err := loadEventBridgeFile(opt)
 		if err != nil {
 			return err
 		}
@@ -118,5 +116,6 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// deployCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	deployCmd.Flags().StringVarP(&deployFlags.EventBridgeFilePath, "eventbridge", "e", "eventbridge.json", "EventBridge file path")
+	deployCmd.Flags().StringVarP(&opt.EventBridgeFilePath, "eventbridge", "e", "eventbridge.json", "EventBridge file path")
+	deployCmd.Flags().StringVarP(&opt.TFState, "tfstate", "", "", "tfstate url")
 }

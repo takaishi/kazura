@@ -14,7 +14,6 @@ import (
 )
 
 type deleteCmdFlags struct {
-	EventBridgeFilePath string
 }
 
 var deleteFlags deleteCmdFlags
@@ -25,7 +24,7 @@ var deleteCmd = &cobra.Command{
 	Short: "delete EventBridge rule and target",
 	Long:  "",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		eb, err := loadEventBridgeFile(deleteFlags.EventBridgeFilePath)
+		eb, err := loadEventBridgeFile(opt)
 		if err != nil {
 			return err
 		}
@@ -66,5 +65,6 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// deleteCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	deleteCmd.Flags().StringVarP(&deleteFlags.EventBridgeFilePath, "eventbridge", "e", "eventbridge.json", "EventBridge file path")
+	deleteCmd.Flags().StringVarP(&opt.EventBridgeFilePath, "eventbridge", "e", "eventbridge.json", "EventBridge file path")
+	deleteCmd.Flags().StringVarP(&opt.TFState, "tfstate", "", "", "tfstate url")
 }
